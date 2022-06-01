@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="login-container">
+            <div id="output"></div>
+            <div class="avatar"></div>
+            <div class="form-box">
+                <form [formGroup]="loginForm" (ngSubmit)="logIn(loginForm.value)">
+                    <input name="user" type="text" placeholder="username" formControlName="username">
+                    <input type="password" placeholder="password" formControlName="password">
+                    <button class="btn btn-info btn-block login" type="submit">Login</button>
+                </form>
+                <div class="alert alert-danger" *ngIf="errorStatus">
+                    <p>{{errorMsj}}</p>
+                </div>
+            </div>
+        </div>
+        
+</div>

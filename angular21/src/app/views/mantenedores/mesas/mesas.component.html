@@ -1,0 +1,96 @@
+<app-navbar></app-navbar>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#newUserModal">Nuevo +</button>
+
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>mesa id</th>
+                <th>numero</th>
+                <th>estado id</th>
+                <th>capacidad</th>
+                <th>isActive</th>
+                <th>create At</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let mesa of mesasList">
+                <th scope="row">{{mesa.mesaid}}</th>
+                <th>{{mesa.numero}}</th>
+                <th>{{mesa.estadoId}}</th>
+                <th>{{mesa.capacidad}}</th>
+                <th>{{mesa.isActive}}</th>
+                <th>{{mesa.createAt}}</th>
+                <th>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="mesaPlaceHolder(this.mesa)" data-bs-target="#exampleModal">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteMesa(this.mesa.mesaid)">Borrar</button>  
+                </th>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+
+<!-- Edit Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="mesaForm" (ngSubmit)="editMesa(mesaForm.value,mesaToEdit.mesaid)">
+              <span>numero</span><input formControlName="numero"  placeholder="{{mesaToEdit.numero}}" type="text"><br>
+              <span>estadoId</span><input formControlName="estadoId"  placeholder="{{mesaToEdit.estadoId}}" type="text"><br>
+              <span>capacidad</span><input formControlName="capacidad"  placeholder="{{mesaToEdit.capacidad}}" type="text"><br>
+              <span>isActive</span><input  formControlName="isActive" placeholder="{{mesaToEdit.isActive}}" type="text"><br>
+              <span>Tipo createAt</span><input formControlName="createAt"  placeholder="{{mesaToEdit.createAt}}" type="text"><br>
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- New Product Modal-->
+
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal"  aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <form [formGroup]="newMesaForm" (ngSubmit)="newMesa(newMesaForm.value)">
+            <span>numero</span><input formControlName="numero"  placeholder="{{mesaToEdit.numero}}" type="text"><br>
+            <span>estadoId</span><input formControlName="estadoId"  placeholder="{{mesaToEdit.estadoId}}" type="text"><br>
+            <span>capacidad</span><input formControlName="capacidad"  placeholder="{{mesaToEdit.capacidad}}" type="text"><br>
+            <span>isActive</span><input  formControlName="isActive" placeholder="{{mesaToEdit.isActive}}" type="text"><br>
+            <span>Tipo createAt</span><input formControlName="createAt"  placeholder="{{mesaToEdit.createAt}}" type="text">
+            <br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

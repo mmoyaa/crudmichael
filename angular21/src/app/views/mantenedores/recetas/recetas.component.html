@@ -1,0 +1,244 @@
+
+<app-navbar></app-navbar>
+<br>
+<br>
+<br>
+
+<hr>
+<h1>Recetas</h1>
+
+ <div class="row">
+     <div class="col-md-12">
+       
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#newUserModal">Nueva Receta</button>
+            </div>
+ 
+             <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <!--button  (click)="recetanew" type="button" class="btn btn-dark"><b><</b></button-->
+                
+  <div class="form-group">
+    <select class="form-control" id="recetas"
+           [(ngModel)]="recetaslist" class="form-control">
+        <option *ngFor="let recetas of recetaslist" [value]="recetas">
+        {{recetas.nombre}}
+      </option>
+       
+    </select> 
+    </div>
+                  </div>
+           
+                <div class="col-md-3 text-right">
+                    <!--button   type="button" class="btn btn-dark text-right "><b>></b></button-->
+                </div>
+            </div>
+     </div>
+
+           
+
+ <hr>
+ </div> 
+ 
+
+<div class="container">
+<button (click)="filterRecetasActivas()" class="btn btn-primary">Recetas activas</button> | 
+<button (click)="getrecetas()" class="btn btn-primary">Todas las recetas</button> 
+<hr>
+    <P><B>Lista de Recetas</B></P>
+<table class="table table-hover">
+    <thead>
+        <tr>    
+            <!--th scope="col">#</th-->
+            <th scope="col">Id</th>
+            <th scope="col">Receta</th>
+            <th scope="col">Nombre: </th>       
+            <th scope="col">Creada el </th>
+            <!--th scope="col">Ultimo update</th-->
+            <th scope="col">Esta activa??</th>
+        </tr> 
+        <tbody>
+            
+        <tr *ngFor="let recetas of recetaslist "> > <!----ng-repeat="receta in recetaslist"-->
+            <th scope="row">{{recetas.recetaId}}</th>
+            <th>{{recetas.nombre }}</th>
+            <th>{{recetas.createAt}}</th>
+             <!--th>{{recetas.updatedAt}}</th-- >
+            <!-th>{{recetas.updatedByid}}</th-->
+            <th>{{recetas.isActive}}</th>
+
+            
+             
+        <hr>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="recetasplaceholder(this.recetas)" data-bs-target="#exampleModal">Editar</button>
+            |      <button type="button" class="btn btn-success" data-bs-toggle="modal"  (click)="getlistadorecetas(this.recetas.recetaId)" data-bs-target="#recetaModal">Ver</button>           
+             |   <button class="btn btn-danger" (click)="deleterecetas(recetas.recetaId)">Desactivar</button>
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+  
+</div>
+<!-- Edit Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="recetasform" (ngSubmit)="editrecetas(recetasform.value, recetatoedit.recetaId)">
+              <span>Nombre</span><input formControlName="nombre"  placeholder="{{recetatoedit.nombre}}" type="text" class="form-control"><br>
+              <span>Fecha de creacion?</span><input formControlName="createAt"  placeholder="{{recetatoedit.createAt}}" type="datetime-local" class="form-control"><br>
+              <!--span>updatedAt</span--><!--input formControlName="updatedAt"  placeholder="{{recetatoedit.updatedAt}}" type="date" class="form-control"--><br>
+              <!--span>updatedByid</span><input formControlName="updatedByid"  placeholder="{{recetatoedit.updatedByid}}" type="text" class="form-control"><br-->
+              <!---span-->.<!--/span--><!--input  formControlName="isActive" placeholder="{{recetatoedit.isActive}}" type="text" class="form-control"-->
+              <span>Esta activa?</span>  <BR> <select name="select" formControlName="isActive"  type="text" class="form-control">
+                <option value="1">Activa</option>
+                <option value="0" selected>No Activa</option>
+                </select><br>
+
+
+                
+
+
+              <select class="form-control" id="recetas"
+              [(ngModel)]="recetaslist" class="form-control">
+           <option *ngFor="let recetas of recetaslist" [value]="recetas">
+           {{recetas.nombre}}
+         </option>
+          
+       </select> 
+             
+             
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Ver Receta</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- New Product Modal-->
+
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal"  aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nueva Receta</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+       <form [formGroup]="newrecetasform" (ngSubmit)="otrareceta(newrecetasform.value)">
+        <span>Nombre</span><input formControlName="nombre"  type="text" class="form-control" ><br>
+        <span>Fecha de creacion</span><input formControlName="createAt"  type="datetime-local" class="form-control"><br>
+        <!--span>updatedAt</span><input formControlName="updatedAt"  type="date" class="form-control"--><br>
+        <!--span>updatedByid</span><input formControlName="updatedByid"  type="text" class="form-control"-->    
+        <span>Esta activa?</span>  <BR> <select name="select" formControlName="isActive"  type="text" class="form-control">
+            <option value="1">Activa</option>
+            <option value="0" selected>No Activa</option>
+            </select><br>
+
+            
+
+            <br>
+
+
+     
+
+
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Ver receta</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------------modal de receta-->
+
+
+<div class="modal fade" id="recetaModal" tabindex="-1" role="dialog" aria-labelledby="recetaModal"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> Receta Actual</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+                <h1>Receta:	 </h1>
+           
+<!-----inicio preba mostrar receta-->
+
+
+<app-ingredientes></app-ingredientes>
+
+
+        <!------------------hasta aca la prueba----------------------------------------------->
+  
+
+        <!--Ingrediente:--input type="text" name="nombre"  [(ngModel)]="ingrediente.nombre"/><br/>
+Cantidad: <input type="text" name="cantidad"[(ngModel)]="ingrediente.cantidad"/><br> <br>
+<input type="button" value="guardar" class="btn btn-primary" (click)="guardar()"/-->
+
+
+<!--table border="1">
+  <tr *ngFor="let ingrediente of ingredientes ">
+    <td>{{ingrediente.nombre}}</td>
+        <td>{{ingrediente.cantidad}}</td>
+       
+        <br>
+  </tr>
+</table-->
+      
+                  
+    
+
+
+        <!-------------------------aca fin de la prueba--------------------------->
+
+                <!--div  class="col-md-12">
+
+                    <h1>aca van los ingredientes</h1>  
+                    <tr  *ngFor="producto let recetaproductolist">  <!----ng-repeat="receta in recetaslist"-->
+                        <!--th>{{recetaslist.productoId}}</th>
+                                        
+                    </tr>
+
+
+                </div-->
+
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                
+             
+              </div>
+           
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

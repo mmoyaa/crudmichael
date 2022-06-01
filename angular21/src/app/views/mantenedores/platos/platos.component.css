@@ -1,0 +1,13 @@
+.rojo{
+    background-color: rgb(99, 237, 13);
+    text-align: center;
+    color: white;
+    font-size: 15px;
+}
+
+.blue{
+    background-color: blue;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+}

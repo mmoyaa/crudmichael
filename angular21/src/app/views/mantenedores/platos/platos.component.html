@@ -1,0 +1,148 @@
+<app-navbar></app-navbar>
+<br>
+<br>
+<hr>
+
+<div class="col-md-12">
+       
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#newUserModal">Nueva Receta</button>
+    </div>
+
+     <br>
+    <div class="row">
+        <div class="col-md-3">
+            <!--button  (click)="recetanew" type="button" class="btn btn-dark"><b><</b></button-->
+        </div>
+   
+        <div class="col-md-3 text-right">
+            <!--button   type="button" class="btn btn-dark text-right "><b>></b></button-->
+        </div>
+    </div>
+</div>
+
+   
+
+<hr>
+</div> 
+
+
+<h1>Carta Disponible</h1>
+<button  (click)="filterPlatosActivos()"  class="btn btn-primary">Recetas activas</button> | 
+<button (click)="getplatos()" class="btn btn-primary">Todas las recetas</button> 
+<hr>|
+
+<table class="table table-hover">
+    <thead>
+        <tr>    
+   
+            <th scope="col"></th>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>       
+            <th scope="col">Precio </th>
+            <th scope="col">cuanto demora</th>
+            <th scope="col">Fecha de creacion</th>
+            <th scope="col">Esta activa??</th>
+        </tr> 
+        <tbody>
+            
+        <tr *ngFor="let platos of platoslist "> > <!----ng-repeat="receta in recetaslist"-->
+            <th scope="row">{{platos.platoid}}</th>
+            <th scope="col">{{platos.nombre }}</th>
+            <th scope="col">{{platos.precio}}</th>
+            <th scope="col">{{platos.tiempoCocina}}</th>
+            <th scope="col">{{platos.createAt}}</th>
+            <th scope="col">{{platos.isActive}}</th>
+
+            
+             
+        <hr>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="platosplaceholder(this.platos)" data-bs-target="#exampleModal">Editar</button>|
+                <button class="btn btn-danger" (click)="deleteplatos(platos.platoid)">Desactivar</button>|
+               
+
+             
+                
+                
+
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+
+
+
+<!-- Edit Modal platos-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="platosform" (ngSubmit)="editplatos(platosform.value, platostoedit.platoid)">
+              <span>Nombre</span><input formControlName="nombre"  placeholder="{{platostoedit.nombre}}" type="text" class="form-control"><br>
+              <span>Precio</span><input formControlName="precio"  placeholder="{{platostoedit.precio}}" type="number" class="form-control"><br>
+              <span>Tiempo</span><input formControlName="tiempoCocina"  placeholder="{{platostoedit.tiempoCocina}}" type="text" class="form-control"><br>
+              <span>fecha de creacion</span><input formControlName="createAt"  placeholder="{{platostoedit.createAt}}" type="datetime-local" class="form-control"><br>
+              <!---span--><!--/span--><!--input  formControlName="isActive" placeholder="{{recetatoedit.isActive}}" type="text" class="form-control"-->
+              <span>Esta activa?</span>  <BR> <select name="select" formControlName="isActive"  type="text" class="form-control">
+                <option value="1">Activa</option>
+                <option value="0" selected>No Activa</option>
+                </select><br>
+             
+             
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Ver Receta</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- New plato Modal-->
+
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nueva Receta</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+         <form [formGroup]="newplatosform" (ngSubmit)="otroplato(newplatosform.value) ">
+            <span>Nombre</span><input formControlName="nombre"  placeholder="{{platostoedit.nombre}}" type="text" class="form-control"><br>
+            <span>Precio</span><input formControlName="precio"  placeholder="{{platostoedit.precio}}" type="number" class="form-control"><br>
+            <span>Tiempo que demora</span><input formControlName="tiempoCocina"  placeholder="{{platostoedit.tiempoCocina}}" type="text" class="form-control"><br>
+            <span>fecha de creacion</span><input formControlName="createAt"  placeholder="{{platostoedit.createAt}}" type="datetime-local" class="form-control"><br>
+          <span>Esta activa?</span>  <BR> <select name="select" formControlName="isActive"  type="text" class="form-control">
+              <option value="1">Activa</option>
+              <option value="0" selected>No Activa</option>
+              </select><br>
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Ver receta</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

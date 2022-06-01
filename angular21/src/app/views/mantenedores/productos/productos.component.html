@@ -1,0 +1,100 @@
+<app-navbar></app-navbar>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#newUserModal">Nuevo +</button>
+
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>proveedorId</th>
+                <th>stock</th>
+                <th>ultimaCompra</th>
+                <th>tipoDeProductoId</th>
+                <th>isActive</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of productList">
+                <th scope="row">{{product.productoId}}</th>
+                <th>{{product.nombre}}</th>
+                <th>{{product.proveedorId}}</th>
+                <th>{{product.stock}}</th>
+                <th>{{product.ultimaCompra}}</th>
+                <th>{{product.tipoProductoId}}</th>
+                <th>{{product.isActive}}</th>
+                <th>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="placeHolderProduct(this.product)" data-bs-target="#exampleModal">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteProduct(product.productoId)">Borrar</button>  
+                </th>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+
+<!-- Edit Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="productForm" (ngSubmit)="editProduct(productForm.value,productToEdit.productoId)">
+              <span>Nombre</span><input formControlName="nombre"  placeholder="{{productToEdit.nombre}}" type="text"><br>
+              <span>Proveedor</span><input formControlName="proveedorId"  placeholder="{{productToEdit.proveedorId}}" type="text"><br>
+              <span>Stock</span><input formControlName="stock"  placeholder="{{productToEdit.stock}}" type="text"><br>
+              <span>Ultima</span><input  formControlName="ultimaCompra" placeholder="{{productToEdit.ultimaCompra}}" type="text"><br>
+              <span>Tipo Producto</span><input formControlName="tipoProductoId"  placeholder="{{productToEdit.tipoProductoId}}" type="text"><br>
+              <span>isActive</span> <input formControlName="isActive"  placeholder="{{productToEdit.isActive}}" type="text" type="text">
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- New Product Modal-->
+
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal"  aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <form [formGroup]="newProductForm" (ngSubmit)="addProduct(newProductForm.value)">
+          <span>Nombre</span><input formControlName="nombre" type="text"><br>
+          <span>Proveedor</span><input formControlName="proveedorId" type="text"><br>
+          <span>Stock</span><input formControlName="stock" type="text"><br>
+          <span>Ultima Compra</span><input formControlName="ultimaCompra" type="text"><br>
+          <span>Tipo Producto</span><input formControlName="tipoProductoId" type="text"><br>
+          <span>isActive</span><input formControlName="isActive" type="text"><br>
+          <br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

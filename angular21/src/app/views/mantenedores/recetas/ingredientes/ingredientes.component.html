@@ -1,0 +1,41 @@
+
+
+   
+ 
+<h1>muestra recetas</h1>
+  <div class="form-group">
+    <select class="form-control" id="recetas"
+           [(ngModel)]="muestrarecetas" class="form-control">
+        <option *ngFor="let recetas of muestrarecetas" [value]="recetas">
+        {{recetas.nombre}}
+      </option>
+       
+    </select> 
+    </div>
+
+ 
+    <h1>muestra platos</h1>
+    <div class="form-group">
+      <select class="form-control" id="recetas"
+             [(ngModel)]="muestraplatos" class="form-control">
+          <option *ngFor="let platos of muestrarecetas" [value]="platos">
+          {{platos.nombre}}
+        </option>
+         
+      </select> 
+      </div>  
+
+       
+<h1>muestra productos</h1>
+<div class="form-group">
+  <select class="form-control" id="recetas"
+         [(ngModel)]="muestraproductos" class="form-control">
+      <option *ngFor="let producto of muestraproductos" [value]="producto">
+      {{producto.nombre}}
+    </option>
+     
+  </select> 
+  </div>
+
+
+

@@ -1,0 +1,100 @@
+<app-navbar></app-navbar>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#newUserModal">Nuevo +</button>
+
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>role Id</th>
+                <th>isActive</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of userList">
+                <th scope="row">{{user.usuarioid}}</th>
+                <th>{{user.nombre}}</th>
+                <th>{{user.apellidos}}</th>
+                <th>{{user.username}}</th>
+                <th>{{user.password}}</th>
+                <th>{{user.tipoUsuarioId}}</th>
+                <th>{{user.isActive}}</th>
+                <th>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="placeHolderUser(this.user)" data-bs-target="#exampleModal">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteUser(user.usuarioid)">Borrar</button>  
+                </th>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+
+<!-- Edit Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="userForm" (ngSubmit)="editUser(userForm.value,userToEdit.usuarioid)">
+              <span>Nombre</span><input formControlName="nombre"  placeholder="{{userToEdit.nombre}}" type="text"><br>
+              <span>Apellido</span><input formControlName="apellidos"  placeholder="{{userToEdit.apellidos}}" type="text"><br>
+              <span>username</span><input formControlName="username"  placeholder="{{userToEdit.username}}" type="text"><br>
+              <span>Password</span><input  formControlName="password" placeholder="{{userToEdit.password}}" type="text"><br>
+              <span>IsActive</span><input formControlName="isActive"  placeholder="{{userToEdit.isActive}}" type="text"><br>
+              <span>Tipo Usuario</span> <input formControlName="tipoUsuarioId"  placeholder="{{userToEdit.tipoUsuarioId}}" type="text" type="text">
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- New User Modal-->
+
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal"  aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <form [formGroup]="newUserForm" (ngSubmit)="newUser(newUserForm.value)">
+          <span>Nombre</span><input formControlName="nombre" type="text"><br>
+          <span>Apellidos</span><input formControlName="apellidos" type="text"><br>
+          <span>Username</span><input formControlName="username" type="text"><br>
+          <span>Password</span><input formControlName="password" type="password"><br>
+          <span>isActive</span><input formControlName="isActive" type="text"><br>
+          <span>Tipo Usuario</span><input formControlName="tipoUsuarioId" type="text"><br>
+          <br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

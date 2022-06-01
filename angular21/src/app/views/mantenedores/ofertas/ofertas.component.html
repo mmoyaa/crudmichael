@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#newUserModal">Nuevo</button>
+
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Oferta id</th>
+                <th>Cantidad</th>
+                <th>Creado</th>
+                <th>isActive</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let oferta of ofertasList">
+                <th scope="row">{{oferta.ofertaid}}</th>
+                <th>{{oferta.cantidad}}</th>
+                <th>{{oferta.createAt}}</th>
+                <th>{{oferta.isActive}}</th>
+                <th>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="ofertaPlaceHolder(this.oferta)" data-bs-target="#exampleModal">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteOferta(this.oferta.ofertaid)">Borrar</button>  
+                </th>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+
+<!-- Edit Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="ofertaForm" (ngSubmit)="editOferta(ofertaForm.value,ofertaToEdit.ofertaid)">
+              <span>Cantidad</span><input formControlName="cantidad"  placeholder="{{ofertaToEdit.cantidad}}" type="text"><br>
+              <span>CreateAt</span><input formControlName="createAt"  placeholder="{{ofertaToEdit.createAt}}" type="text"><br>
+              <span>isActive</span><input  formControlName="isActive" placeholder="{{ofertaToEdit.isActive}}" type="text"><br>
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- New Product Modal-->
+
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal"  aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <form [formGroup]="newOfertaForm" (ngSubmit)="newOferta(newOfertaForm.value)">
+            <span>Cantidad</span><input formControlName="cantidad"   type="text"><br>
+            <span>CreateAt</span><input formControlName="createAt"   type="text"><br>
+            <span>isActive</span><input  formControlName="isActive"  type="text"><br>
+            <br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<app-navbar></app-navbar>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#newUserModal">Nuevo +</button>
+
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>rut</th>
+                <th>createAt</th>
+                <th>isActive</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let proveedor of proveedorList">
+                <th scope="row">{{proveedor.proveedorId}}</th>
+                <th>{{proveedor.nombre}}</th>
+                <th>{{proveedor.rut}}</th>
+                <th>{{proveedor.createAt}}</th>
+                <th>{{proveedor.isActive}}</th>
+                <th>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" (click)="placeHolderProveedor(this.proveedor)" data-bs-target="#exampleModal">Editar</button>
+                    <button class="btn btn-danger" (click)="deleteProveedor(proveedor.proveedorId)">Borrar</button>  
+                </th>
+            </tr>
+        </tbody>
+    </table> 
+</div>
+
+<!-- Edit Modal-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"  aria-hidden="true">
+    <div class="modal-dialog"  role="document">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="proveedorForm" (ngSubmit)="editProveedor(proveedorForm.value,proveedorToEdit.proveedorId)" >
+              <span>Nombre</span><input formControlName="nombre"  placeholder="{{proveedorToEdit.nombre}}" type="text"><br>
+              <span>Rut</span><input formControlName="rut"  placeholder="{{proveedorToEdit.nombre}}" type="text"><br>
+              <span>CreatedAt</span><input formControlName="createAt"  placeholder="{{proveedorToEdit.createAt}}" type="text"><br>
+              <span>isActive</span><input  formControlName="isActive" placeholder="{{proveedorToEdit.isActive}}" type="text"><br>
+              <br>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- New Product Modal-->
+
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModal"  aria-hidden="true">
+  <div class="modal-dialog"  role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" >
+        <form [formGroup]="newProveedorForm" (ngSubmit)="newProveedor(newProveedorForm.value)">
+            <span>Nombre</span><input formControlName="nombre"   type="text"><br>
+            <span>Rut</span><input formControlName="rut"  type="text"><br>
+            <span>CreatedAt</span><input formControlName="createAt"  type="text"><br>
+            <span>isActive</span><input  formControlName="isActive" type="text"><br>
+            <br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Confirmar</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
